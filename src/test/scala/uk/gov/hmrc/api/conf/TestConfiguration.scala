@@ -19,24 +19,17 @@ package uk.gov.hmrc.api.conf
 import com.typesafe.config.{Config, ConfigFactory}
 
 object TestConfiguration {
+  val config: Config         = ConfigFactory.load()
+  val servicesConfig: Config = config.getConfig("services")
 
-  val config: Config        = ConfigFactory.load()
-  val env: String           = config.getString("environment")
-  val defaultConfig: Config = config.getConfig("local")
-  val envConfig: Config     = config.getConfig(env).withFallback(defaultConfig)
+  def url(service: String): String =
+    s"${environmentProtocol(service)}://${environmentHost(service)}:${servicePort(service)}${serviceRoute(service)}"
 
-  def url(service: String): String = {
-    val host = env match {
-      case "local" => s"$environmentHost:${servicePort(service)}"
-      case _       => s"${envConfig.getString(s"services.host")}"
-    }
-    s"$host${serviceRoute(service)}"
-  }
+  def environmentProtocol(serviceName: String): String = servicesConfig.getString(s"$serviceName.protocol")
 
-  def environmentHost: String = envConfig.getString("services.host")
+  def environmentHost(serviceName: String): String = servicesConfig.getString(s"$serviceName.host")
 
-  def servicePort(serviceName: String): String = envConfig.getString(s"services.$serviceName.port")
+  def servicePort(serviceName: String): String = servicesConfig.getString(s"$serviceName.port")
 
-  def serviceRoute(serviceName: String): String = envConfig.getString(s"services.$serviceName.productionRoute")
-
+  def serviceRoute(serviceName: String): String = servicesConfig.getString(s"$serviceName.productionRoute")
 }
