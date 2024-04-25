@@ -1,33 +1,26 @@
-**This is the template README. Please update this with project specific content.**
-
 # eu-vat-rates-contract-tests-qa
 
-<SERVICE_NAME> API tests.
+eu-vat-rates Contract API tests.
 
-## Pre-requisites
+## Running the tests
 
-### Services
+QA:
 
-Start Mongo Docker container as follows:
+These tests were developed to run against the QA environment. 
 
-```bash
-docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:5.0
-```
+They are currently ran as an ad-hoc job called eu-vat-rates-contract-tests-qa on jenkins but we may introduce a 
+scheduled job at a later date. The jenkins job is configured via the build-jobs repo.
 
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
+This test checks that the EC Vat Rates API is returning XML in the expected format. 
 
-```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
-```
+If this needs to be tested locally, please use the following steps:
 
-## Tests
+Execute the `run-tests.sh` script:
 
-Run tests as follows:
+`./run_tests.sh <environment>`
 
-* Argument `<environment>` must be `local`, `dev`, `qa` or `staging`.
-
-```bash
-./run-tests.sh <environment>
+The tests default to the `local` environment.  For a complete list of supported param values, see:
+- `src/test/resources/application.conf` for **environment**
 ```
 
 ## Scalafmt
