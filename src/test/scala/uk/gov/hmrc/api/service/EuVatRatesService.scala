@@ -24,16 +24,17 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 
 class EuVatRatesService extends HttpClient {
-  val host: String = TestConfiguration.url("ec-vat-rates")
+  val host: String          = TestConfiguration.url("ec-vat-rates")
   val ecVatRatesURL: String = s"$host/taxation_customs/tedb/ws/VatRetrievalService.wsdl"
 
   def getEuVatRatesDateRange(
-                              countryCode: String,
-                              startDate: String,
-                              endDate: String
-                            ): StandaloneWSRequest#Self#Response =
+    countryCode: String,
+    startDate: String,
+    endDate: String
+  ): StandaloneWSRequest#Self#Response =
     Await.result(
-      post(ecVatRatesURL,
+      post(
+        ecVatRatesURL,
         (<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:ec.europa.eu:taxud:tedb:services:v1:IVatRetrievalService" xmlns:urn1="urn:ec.europa.eu:taxud:tedb:services:v1:IVatRetrievalService:types">
           <soapenv:Header/>
           <soapenv:Body>
@@ -46,8 +47,8 @@ class EuVatRatesService extends HttpClient {
             </urn:retrieveVatRatesReqMsg>
           </soapenv:Body>
         </soapenv:Envelope>).toString(),
-        ("SOAPAction" -> "urn:ec.europa.eu:taxud:tedb:services:v1:VatRetrievalService/RetrieveVatRates"),
-        ("Content-Type" -> "text/xml")
+        "SOAPAction"   -> "urn:ec.europa.eu:taxud:tedb:services:v1:VatRetrievalService/RetrieveVatRates",
+        "Content-Type" -> "text/xml"
       ),
       10.seconds
     )

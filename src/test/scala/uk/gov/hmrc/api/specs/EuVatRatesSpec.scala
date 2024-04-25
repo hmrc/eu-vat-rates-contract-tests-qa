@@ -50,14 +50,14 @@ class EuVatRatesSpec extends BaseSpec {
   def checkForSingleEuVatRate(elem: Node): Assertion = {
 
     val memberStateElem = elem \ "memberState"
-    val rateElem = elem \ "rate" \ "value"
+    val rateElem        = elem \ "rate" \ "value"
     val vatRateTypeElem = elem \ "type"
-    val situatedOnElem = elem \ "situationOn"
+    val situatedOnElem  = elem \ "situationOn"
 
     memberStateElem.exists(x => x.text.nonEmpty) shouldBe true
-    rateElem.exists(x => x.text.nonEmpty) shouldBe true
+    rateElem.exists(x => x.text.nonEmpty)        shouldBe true
     vatRateTypeElem.exists(x => x.text.nonEmpty) shouldBe true
-    situatedOnElem.exists(x => x.text.nonEmpty) shouldBe true
+    situatedOnElem.exists(x => x.text.nonEmpty)  shouldBe true
 
   }
 }
