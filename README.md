@@ -15,6 +15,12 @@ This test checks that the EC Vat Rates API is returning XML in the expected form
 
 If this needs to be tested locally, please use the following steps:
 
+Start `EU_VAT_RATES_ALL` services as follows:
+
+```bash
+sm2 --start EU_VAT_RATES_ALL
+```
+
 Execute the `run-tests.sh` script:
 
 `./run_tests.sh <environment>`
