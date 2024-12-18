@@ -23,7 +23,7 @@ sm2 --start EU_VAT_RATES_ALL
 
 Execute the `run-tests.sh` script:
 
-`./run_tests.sh <environment>`
+`./run-tests.sh <environment>`
 
 The tests default to the `local` environment.  For a complete list of supported param values, see:
 - `src/test/resources/application.conf` for **environment**

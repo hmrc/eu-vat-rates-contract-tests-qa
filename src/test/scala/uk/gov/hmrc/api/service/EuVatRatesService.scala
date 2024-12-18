@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.api.service
 
-import play.api.libs.ws.StandaloneWSRequest
 import uk.gov.hmrc.api.client.HttpClient
 import uk.gov.hmrc.api.conf.TestConfiguration
 
@@ -31,7 +30,7 @@ class EuVatRatesService extends HttpClient {
     countryCode: String,
     startDate: String,
     endDate: String
-  ): StandaloneWSRequest#Self#Response =
+  ) =
     Await.result(
       post(
         ecVatRatesURL,
